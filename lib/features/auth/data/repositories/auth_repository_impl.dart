@@ -1,23 +1,28 @@
 
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failures.dart';
-import '../../../../core/errors/exceptions.dart';
-import '../../domain/entities/user.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../datasources/auth_remote_data_source.dart';
+import 'package:gym_app/core/errors/failures.dart';
+// import 'package:gym_app//core/errors/exceptions.dart';
+import 'package:gym_app/features/auth/domain/entities/user.dart';
+import 'package:gym_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:gym_app/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
+  // Si tuvieras una fuente de datos local, también la inyectarías aquí:
+  // final AuthLocalDataSource localDataSource;
 
-  AuthRepositoryImpl(this.remoteDataSource);
+  AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<Either<Failure, User>> login(String email, String password) async {
     try {
       final user = await remoteDataSource.login(email, password);
       return Right(user);
-    } on ServerException {
-      return Left(ServerFailure());
+    } on AuthException catch (e) {
+      if (e.message == 'invalid_credentials') {
+        return Left(InvalidCredentialsFailure());
+      }
+      return Left(NetworkFailure());
     }
   }
 }

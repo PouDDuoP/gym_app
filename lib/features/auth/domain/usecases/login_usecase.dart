@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/failures.dart';
-import '../entities/user.dart';
-import '../repositories/auth_repository.dart';
+import 'package:gym_app/core/errors/failures.dart';
+import 'package:gym_app/features/auth/domain/entities/user.dart';
+import 'package:gym_app/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginUsecase {
   final AuthRepository repository;
