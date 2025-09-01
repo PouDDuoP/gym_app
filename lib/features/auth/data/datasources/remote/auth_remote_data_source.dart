@@ -1,10 +1,38 @@
 import 'package:dio/dio.dart';
 import 'package:bcrypt/bcrypt.dart';
 import 'package:gym_app/core/errors/failures.dart';
+import 'package:gym_app/core/errors/exceptions.dart';
 import 'package:gym_app/features/auth/domain/entities/user.dart';
 
+// LoginResponse es para la respuesta completa de la API, integrando todos los valores de respuesta como tokens y usuario.
+class LoginResponse {
+  final String accessToken;
+  final String refreshToken;
+  final User user;
+
+  LoginResponse({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.user,
+  });
+
+  factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    return LoginResponse(
+      accessToken: json['accessToken'], 
+      refreshToken: json['refreshToken'], 
+      user: User(
+        id: json['user']['id'], 
+        email: json['user']['email'], 
+        firstName: json['user']['firstName'], 
+        lastName: json['user']['lastName'],
+        role: json['user']['role'],
+      )
+    );
+  }
+}
+
 abstract class AuthRemoteDataSource {
-  Future<User> login(String email, String password);
+  Future<LoginResponse> login(String email, String password);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -13,6 +41,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   AuthRemoteDataSourceImpl({required this.client});
 
+  /*
   // Lista de usuarios simulada con datos completos y contraseñas hasheadas.
   // Nota: El campo 'plainPassword' es solo para fines de prueba
   final List<Map<String, String>> _storedUsers = [
@@ -109,8 +138,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       orElse: () => {},
     );
 
-    final String passwordTest = 'password1';
-    final String salt = BCrypt.gensalt(logRounds: 12);
+    // final String passwordTest = 'password1';
+    // final String salt = BCrypt.gensalt(logRounds: 12);
 
     // final String hashedPassword = BCrypt.hashpw(passwordTest, salt);
     // final hashedPasswordTest = BCrypt.checkpw(passwordTest, hashedPassword);
@@ -138,5 +167,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       }
     }
     throw const AuthException('invalid_credentials');
+  }
+  */
+
+  @override
+  Future<LoginResponse> login(String email, String password) async {
+    try {
+      final response = await client.post(
+        '/authentication/login', 
+        data: {
+          'email': email,
+          'password': password,
+        }
+      );
+      return LoginResponse.fromJson(response.data);
+    } on DioException {
+      throw ServerException();
+    }
   }
 }

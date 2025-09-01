@@ -16,7 +16,7 @@ void main() {
   // Configuración de la inyección de dependencias
   final Dio dioClient = Dio();
   final AuthRemoteDataSourceImpl authRemoteDataSource = AuthRemoteDataSourceImpl(client: dioClient);
-  final AuthRepositoryImpl authRepository = AuthRepositoryImpl(remoteDataSource: authRemoteDataSource);
+  final AuthRepositoryImpl authRepository = AuthRepositoryImpl(remoteDataSource: authRemoteDataSource, client: dioClient);
   final LoginUsecase loginUsecase = LoginUsecase(authRepository);
 
   runApp(
