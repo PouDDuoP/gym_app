@@ -47,4 +47,29 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, User>> register(String email, String password, String firstName, String lastName, String birthdate) async {
+    try {
+      final response = await remoteDataSource.register(email, password, firstName, lastName, birthdate);
+      final prefs = await SharedPreferences.getInstance();
+
+      await prefs.setString('refreshToken', response.refreshToken);
+      await prefs.remove('role');
+
+      final roleName = response.user.role;
+
+      try {
+        await prefs.setString('role', roleName);
+      } catch (e) {
+        rethrow;
+      }
+      await prefs.setString('userId', response.user.id);
+      await prefs.setString('userEmail', response.user.email);
+
+      return Right(response.user);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }
