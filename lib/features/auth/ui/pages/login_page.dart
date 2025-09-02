@@ -1,53 +1,13 @@
-// import 'package:flutter/material.dart';
-
-// class LoginPage extends StatefulWidget {
-//   const LoginPage({super.key});
-
-//   @override
-//   State<LoginPage> createState() => _LoginPageState();
-// }
-
-// class _LoginPageState extends State<LoginPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Padding(
-//           padding: EdgeInsets.all(8.0),
-//           child: TextField(
-//             keyboardType: TextInputType.emailAddress,
-//             decoration: InputDecoration(
-//               prefixIcon: Icon(Icons.email),
-//               border: OutlineInputBorder(),
-//               labelText: 'Enter your email',
-//             ),
-//           ),
-//         ),
-//         SizedBox(height: 20),
-//         Padding(
-//           padding: EdgeInsets.all(8.0),
-//           child: TextField(
-//             obscureText: true,
-//             decoration: InputDecoration(
-//               prefixIcon: Icon(Icons.lock),
-//               border: OutlineInputBorder(),
-//               labelText: 'Enter your password',
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_app/core/widgets/vertical_space.dart';
+import 'package:gym_app/core/widgets/space.dart';
 import 'package:gym_app/core/widgets/app_colors.dart';
+
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
+
+import '../pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -60,6 +20,21 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  bool _isHidden = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Colocado para empujar el contenido, notra: tengo que verificar si con la imagen lo empuja o no
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.32),
+                    Space.vertical(MediaQuery.of(context).size.height * 0.32),
                 
                     // Título de la página.
                     Text(
@@ -108,16 +83,27 @@ class _LoginPageState extends State<LoginPage> {
                         color: AppColors.foreground,
                       ),
                     ),
-                    SizedBox(height: 32),
+                    Space.vertical(32.0),
                 
                     TextFormField(
                       controller: _emailController,
+                      style: TextStyle(color: AppColors.foreground), 
                       decoration: InputDecoration(
-                        labelText: 'Correo Electronico', // Pudiese ser usuario y Contraseña?
+                        filled: true, 
+                        fillColor: AppColors.backgroundInput, 
+                        labelText: 'Correo Electronico',
+                        labelStyle: TextStyle(
+                          color: AppColors.foreground,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        prefixIcon: const Icon(Icons.person),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: AppColors.foreground),
+                        ),
+                        prefixIcon: const Icon(Icons.email),
+                        prefixIconColor: AppColors.foreground
                       ),
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -131,18 +117,36 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16),
+                    Space.vertical(16.0),
                 
                     TextFormField(
                       controller: _passwordController,
+                      style: TextStyle(color: AppColors.foreground), 
                       decoration: InputDecoration(
+                        filled: true, 
+                        fillColor: AppColors.backgroundInput, 
                         labelText: 'Contraseña',
+                        labelStyle: TextStyle(
+                          color: AppColors.foreground,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: AppColors.foreground),
+                        ),
                         prefixIcon: Icon(Icons.lock),
+                        prefixIconColor: AppColors.foreground,
+                        suffixIcon: GestureDetector(
+                          onTap: _togglePasswordView,
+                          child: Icon(
+                              _isHidden ? Icons.visibility : Icons.visibility_off,
+                            )
+                          ),
+                        suffixIconColor: AppColors.foreground,
                       ),
-                      obscureText: true,
+                      obscureText: _isHidden,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Por favor ingresa tu contraseña';
@@ -153,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16),
+                    Space.vertical(16.0),
 
                     if (state is AuthLoading)
                       const CircularProgressIndicator()
@@ -185,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text('Iniciar Sesión'),
                       ),
                     
-                    SizedBox(height: 24),
+                    Space.vertical(24.0),
                     
                     Row(
                       children: [
@@ -200,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                         Expanded(child: Divider()),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    Space.vertical(8.0),
                         
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         
-                        SizedBox(width: 12),
+                        Space.horizontal(12.0),
                         
                         Expanded(
                           child: IconButton(
@@ -232,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         
-                        SizedBox(width: 12),
+                        Space.horizontal(12.0),
                 
                         Expanded(
                           child: IconButton(
@@ -249,7 +253,7 @@ class _LoginPageState extends State<LoginPage> {
                         
                       ],
                     ),
-                    SizedBox(height: 2),
+                    Space.vertical(2.0),
                 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -263,7 +267,12 @@ class _LoginPageState extends State<LoginPage> {
                         
                         TextButton(
                           onPressed: () {
-                            // Lógica para navegar a la pantalla de registro.
+                            Navigator.push(context, 
+                              MaterialPageRoute(builder: (context) => RegisterPage(
+                                // height: selectedHeight,
+                                // weight: selectedWeight,
+                              ))
+                            );
                           },
                           child: const Text(
                             'Crear una cuenta',
@@ -285,10 +294,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 }
