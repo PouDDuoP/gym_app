@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_app/core/widgets/space.dart';
-import 'package:gym_app/core/widgets/app_colors.dart';
+import 'package:stability_front/core/widgets/space.dart';
+import 'package:stability_front/core/widgets/app_colors.dart';
 
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';

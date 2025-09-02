@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/core/widgets/app_colors.dart';
+import 'package:stability_front/core/widgets/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

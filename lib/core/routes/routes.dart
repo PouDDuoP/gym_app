@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/features/auth/ui/pages/login_page.dart';
-import 'package:gym_app/features/auth/ui/pages/register_page.dart';
+import 'package:stability_front/features/auth/ui/pages/login_page.dart';
+import 'package:stability_front/features/auth/ui/pages/register_page.dart';
 
 class AppRoutes {
   // static const home = '/home';

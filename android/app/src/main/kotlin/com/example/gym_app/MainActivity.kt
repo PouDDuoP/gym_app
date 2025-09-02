@@ -1,4 +1,4 @@
-package com.example.gym_app
+package com.example.stability_front
 
 import io.flutter.embedding.android.FlutterActivity
 

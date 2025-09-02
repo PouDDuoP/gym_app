@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:gym_app/features/auth/domain/entities/user.dart';
+import 'package:stability_front/features/auth/domain/entities/user.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();

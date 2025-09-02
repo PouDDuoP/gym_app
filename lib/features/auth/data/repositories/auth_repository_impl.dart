@@ -2,11 +2,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:gym_app/core/errors/failures.dart';
-import 'package:gym_app/core/errors/exceptions.dart';
-import 'package:gym_app/features/auth/domain/entities/user.dart';
-import 'package:gym_app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:gym_app/features/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:stability_front/core/errors/failures.dart';
+import 'package:stability_front/core/errors/exceptions.dart';
+import 'package:stability_front/features/auth/domain/entities/user.dart';
+import 'package:stability_front/features/auth/domain/repositories/auth_repository.dart';
+import 'package:stability_front/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;

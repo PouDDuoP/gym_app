@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 
-import 'package:gym_app/features/auth/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:gym_app/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:stability_front/features/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:stability_front/features/auth/data/repositories/auth_repository_impl.dart';
 
 // usecases
-import 'package:gym_app/features/auth/domain/usecases/login_usecase.dart';
-import 'package:gym_app/features/auth/domain/usecases/register_usecase.dart';
+import 'package:stability_front/features/auth/domain/usecases/login_usecase.dart';
+import 'package:stability_front/features/auth/domain/usecases/register_usecase.dart';
 
-import 'package:gym_app/features/auth/ui/bloc/auth_bloc.dart';
-// import 'package:gym_app/features/auth/ui/pages/login_page.dart';
-import 'package:gym_app/core/routes/routes.dart';
+import 'package:stability_front/features/auth/ui/bloc/auth_bloc.dart';
+// import 'package:stability_front/features/auth/ui/pages/login_page.dart';
+import 'package:stability_front/core/routes/routes.dart';
 
 // Importa estilos generales
-// import 'package:gym_app/core/widgets/app_colors.dart';
+// import 'package:stability_front/core/widgets/app_colors.dart';
 
 void main() {
   // Configuración de la inyección de dependencias

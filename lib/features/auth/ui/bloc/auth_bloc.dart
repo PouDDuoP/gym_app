@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gym_app/core/errors/failures.dart';
-import 'package:gym_app/features/auth/domain/usecases/login_usecase.dart';
-import 'package:gym_app/features/auth/domain/usecases/register_usecase.dart';
+import 'package:stability_front/core/errors/failures.dart';
+import 'package:stability_front/features/auth/domain/usecases/login_usecase.dart';
+import 'package:stability_front/features/auth/domain/usecases/register_usecase.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 

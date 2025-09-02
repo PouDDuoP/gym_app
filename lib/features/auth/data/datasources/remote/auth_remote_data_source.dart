@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:bcrypt/bcrypt.dart';
-import 'package:gym_app/core/errors/failures.dart';
-import 'package:gym_app/core/errors/exceptions.dart';
-import 'package:gym_app/features/auth/domain/entities/user.dart';
+import 'package:stability_front/core/errors/failures.dart';
+import 'package:stability_front/core/errors/exceptions.dart';
+import 'package:stability_front/features/auth/domain/entities/user.dart';
 
 // LoginResponse es para la respuesta completa de la API, integrando todos los valores de respuesta como tokens y usuario.
 class LoginResponse {

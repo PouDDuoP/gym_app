@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:gym_app/core/errors/failures.dart';
-import 'package:gym_app/features/auth/domain/entities/user.dart';
-import 'package:gym_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:stability_front/core/errors/failures.dart';
+import 'package:stability_front/features/auth/domain/entities/user.dart';
+import 'package:stability_front/features/auth/domain/repositories/auth_repository.dart';
 
 class RegisterUsecase {
   final AuthRepository repository;

@@ -1,3 +1,3 @@
-# gym_app
+# stability_front
 
 A new Flutter project.

@@ -1,6 +1,6 @@
 {
-    "name": "gym_app",
-    "short_name": "gym_app",
+    "name": "stability_front",
+    "short_name": "stability_front",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
