@@ -4,7 +4,11 @@ import 'package:dio/dio.dart';
 
 import 'package:gym_app/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:gym_app/features/auth/data/repositories/auth_repository_impl.dart';
+
+// usecases
 import 'package:gym_app/features/auth/domain/usecases/login_usecase.dart';
+import 'package:gym_app/features/auth/domain/usecases/register_usecase.dart';
+
 import 'package:gym_app/features/auth/ui/bloc/auth_bloc.dart';
 // import 'package:gym_app/features/auth/ui/pages/login_page.dart';
 import 'package:gym_app/core/routes/routes.dart';
@@ -18,12 +22,16 @@ void main() {
   final AuthRemoteDataSourceImpl authRemoteDataSource = AuthRemoteDataSourceImpl(client: dioClient);
   final AuthRepositoryImpl authRepository = AuthRepositoryImpl(remoteDataSource: authRemoteDataSource, client: dioClient);
   final LoginUsecase loginUsecase = LoginUsecase(authRepository);
+  final RegisterUsecase registerUsecase = RegisterUsecase(authRepository);
 
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(loginUsecase: loginUsecase),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(
+            loginUsecase: loginUsecase,
+            registerUsecase: registerUsecase,
+          ),
         ),
       ],
       child: const MyApp(),
@@ -37,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Login Example',
+      title: 'STABILITY',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
